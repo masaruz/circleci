@@ -25,9 +25,9 @@ workflows:
   run:
     jobs:
       - test
-      - deploy:
-          filters:
-            branches:
-              only: master
-            tags:
-              only: /v.*/
+      # - deploy:
+      #     filters:
+      #       branches:
+      #         only: master
+      #       tags:
+      #         only: /v.*/
