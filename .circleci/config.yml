@@ -12,6 +12,7 @@ jobs:
       - image: circleci/node
     steps:
       - checkout
+      - run: echo ${REACT_APP_STAGE}
       - run: npm i
       - run: REACT_APP_STAGE=${REACT_APP_STAGE} npm run build
       - run: npm i firebase-tools
