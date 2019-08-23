@@ -17,11 +17,20 @@ jobs:
       - run: REACT_APP_STAGE=${REACT_APP_STAGE} npm run build
       - run: npm i firebase-tools
       - run: ./node_modules/firebase-tools/lib/bin/firebase.js deploy --token ${FIREBASE_TOKEN}
-    environment:
-      REACT_APP_STAGE: sandbox
 
 workflows:
   version: 2
   run:
     jobs:
-      - deploy
+      - deploy:
+          context: sandbox
+          filters:
+            branches:
+              only:
+                - uat
+      - deploy:
+          context: production
+          filters:
+            branches:
+              only:
+                - master
