@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - run: npm i
+      - run: npm run test:ci
+  deploy:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - run: npm i
+      - run: REACT_APP_STAGE=${REACT_APP_STAGE} npm run build
+      - run: npm i firebase-tools
+      - run: ./node_modules/firebase-tools/lib/bin/firebase.js deploy --token ${FIREBASE_TOKEN}
+    environment:
+      REACT_APP_STAGE: sandbox
+
+workflows:
+  version: 2
+  run:
+    jobs:
+      - test
+      - deploy:
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /v.*/
