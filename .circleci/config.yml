@@ -24,15 +24,4 @@ workflows:
   version: 2
   run:
     jobs:
-      - test:
-          filters:
-            tags:
-              only: /v.*/
-      - deploy:
-          requires:
-            - test
-          filters:
-            branches:
-              only: master
-            tags:
-              only: /v.*/
+      - deploy
