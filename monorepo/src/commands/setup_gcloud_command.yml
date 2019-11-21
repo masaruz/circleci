@@ -1,0 +1,25 @@
+# Setup GCP configuration
+# See more in GCP console
+# GCLOUD_COMPUTE_ZONE is a region
+# GCLOUD_SERVICE_ACCOUNT base64 of google service account credentials
+gcloud_setup:
+  parameters:
+    # google project id from console
+    project_id:
+      type: string
+    # google project region
+    region:
+      type: string
+    # base64 google service account with proper permission
+    base64_service_account:
+      type: string
+  steps:
+    - run:
+        name: Install lib for create .env from googlesheet
+        command: npm i googleapis
+    - run:
+        name: Set gcloud service account
+        command: |
+          echo $(echo << parameters.base64_service_account >> | base64 -d) | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project << parameters.project_id >>
+          gcloud --quiet config set compute/zone << parameters.region >>

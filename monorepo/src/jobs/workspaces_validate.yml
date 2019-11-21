@@ -1,0 +1,8 @@
+validate:
+  executor: wisekingdom
+  steps:
+    - checkout
+    - run: yarn # install and validate all dependencies
+    - run: yarn workspaces run lint
+    - run: yarn workspaces run test
+    - run: yarn workspaces run build

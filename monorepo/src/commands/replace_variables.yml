@@ -1,0 +1,17 @@
+# Using envsubst to replace environment variable to file
+# *** Require envsubst in your system ***
+# ** Example keyword **
+# ${PROJECT_ID} will be replaced by PROJECT_ID in host environment
+# ${ANY_KEY} will be replaced by ANY_KEY in host environment
+replace_variables:
+  parameters:
+    # template file that include ${...}
+    template:
+      type: string
+    # destination file name or path
+    out:
+      type: string
+  steps:
+    - run:
+        name: Replace variable from template with environment variables
+        command: envsubst "`printf '${%s} ' $(sh -c "env|cut -d'=' -f1")`" < << parameters.template >> > << parameters.out >>
