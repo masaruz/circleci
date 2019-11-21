@@ -1,8 +1,16 @@
-validate:
-  executor: wisekingdom
-  steps:
-    - checkout
-    - run: yarn # install and validate all dependencies
-    - run: yarn workspaces run lint
-    - run: yarn workspaces run test
-    - run: yarn workspaces run build
+version: 2.1
+executors:
+  node:
+    docker:
+      - image: circleci/node:10.16.3
+
+jobs:
+  workspaces_validate:
+    executors: node
+    steps:
+      - setup
+      - checkout
+      - run: yarn # install and validate all dependencies
+      - run: yarn workspaces run lint
+      - run: yarn workspaces run test
+      - run: yarn workspaces run build

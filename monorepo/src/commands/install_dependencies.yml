@@ -1,9 +1,0 @@
-# Install nodejs to the container
-replace_variables:
-  steps:
-    - run:
-        name: Install NodeJS
-        command: |
-          sudo apt-get update
-          curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-          sudo apt-get install -y nodejs typescript envsubst

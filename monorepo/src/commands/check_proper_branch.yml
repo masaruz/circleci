@@ -4,6 +4,7 @@ check_proper_branch:
   parameters:
     branch:
       type: string
+      description: Branch name
   steps:
     - run:
         name: Check if this branch is allowed

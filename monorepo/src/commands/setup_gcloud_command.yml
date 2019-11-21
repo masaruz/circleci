@@ -4,15 +4,15 @@
 # GCLOUD_SERVICE_ACCOUNT base64 of google service account credentials
 gcloud_setup:
   parameters:
-    # google project id from console
     project_id:
       type: string
-    # google project region
+      description: Google project id from console
     region:
       type: string
-    # base64 google service account with proper permission
+      description: Google project region
     base64_service_account:
       type: string
+      description: Base64 Google service account
   steps:
     - run:
         name: Install lib for create .env from googlesheet
