@@ -1,5 +1,7 @@
-# Check if current branch is equal with branch from parameters
-# Just in case of tagged branch trigger the process
+version: 2.1
+description: |
+  Check if current branch is equal with branch from parameters,
+  just in case of tagged branch trigger the process
 check_proper_branch:
   parameters:
     branch:

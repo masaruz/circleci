@@ -1,7 +1,6 @@
-# Setup GCP configuration
-# See more in GCP console
-# GCLOUD_COMPUTE_ZONE is a region
-# GCLOUD_SERVICE_ACCOUNT base64 of google service account credentials
+version: 2.1
+description: |
+  Setup GCP configuration, see more in GCP console
 gcloud_setup:
   parameters:
     project_id:

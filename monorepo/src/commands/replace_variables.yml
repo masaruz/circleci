@@ -1,8 +1,8 @@
-# Using envsubst to replace environment variable to file
-# *** Require envsubst in your system ***
-# ** Example keyword **
-# ${PROJECT_ID} will be replaced by PROJECT_ID in host environment
-# ${ANY_KEY} will be replaced by ANY_KEY in host environment
+version: 2.1
+description: |
+  Using envsubst to replace environment variable to file,
+  ${PROJECT_ID} will be replaced by PROJECT_ID in host environment
+  ${ANY_KEY} will be replaced by ANY_KEY in host environment
 replace_variables:
   parameters:
     # template file that include ${...}
