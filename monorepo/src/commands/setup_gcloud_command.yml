@@ -1,24 +1,20 @@
-version: 2.1
-description: |
-  Setup GCP configuration, see more in GCP console
-gcloud_setup:
-  parameters:
-    project_id:
-      type: string
-      description: Google project id from console
-    region:
-      type: string
-      description: Google project region
-    base64_service_account:
-      type: string
-      description: Base64 Google service account
-  steps:
-    - run:
-        name: Install lib for create .env from googlesheet
-        command: npm i googleapis
-    - run:
-        name: Set gcloud service account
-        command: |
-          echo $(echo << parameters.base64_service_account >> | base64 -d) | gcloud auth activate-service-account --key-file=-
-          gcloud --quiet config set project << parameters.project_id >>
-          gcloud --quiet config set compute/zone << parameters.region >>
+parameters:
+  project_id:
+    type: string
+    description: Google project id from console
+  region:
+    type: string
+    description: Google project region
+  base64_service_account:
+    type: string
+    description: Base64 Google service account
+steps:
+  - run:
+      name: Install lib for create .env from googlesheet
+      command: npm i googleapis
+  - run:
+      name: Set gcloud service account
+      command: |
+        echo $(echo << parameters.base64_service_account >> | base64 -d) | gcloud auth activate-service-account --key-file=-
+        gcloud --quiet config set project << parameters.project_id >>
+        gcloud --quiet config set compute/zone << parameters.region >>

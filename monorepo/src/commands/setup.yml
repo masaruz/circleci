@@ -1,16 +1,13 @@
-version: 2.1
-description: Install nodejs to the container
-setup:
-  steps:
-    - run:
-        name: Install Dependencies
-        command: |
-          sudo apt-get update
-          sudo apt-get install -y envsubst
-          envsubst --version
+steps:
+  - run:
+      name: Install Dependencies
+      command: |
+        sudo apt-get update
+        sudo apt-get install -y envsubst
+        envsubst --version
 
-    - run:
-        name: Install Yarn
-        command: |
-          npm install -g yarn
-          yarn --version
+  - run:
+      name: Install Yarn
+      command: |
+        npm install -g yarn
+        yarn --version

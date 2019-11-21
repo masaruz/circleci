@@ -1,0 +1,79 @@
+commands:
+  check_proper_branch:
+    parameters:
+      branch:
+        description: Branch name
+        type: string
+    steps:
+    - run:
+        command: |
+          # Get branch name which contains this tag
+          export CIRCLE_BRANCH=$(git branch --contain HEAD --all | grep remotes/origin | grep -v remotes/origin/HEAD | cut -d '/' -f3-)
+          # Check if this branch matches with our expectation
+          if [ "${CIRCLE_BRANCH}" != "<< parameters.branch >>" ]; then
+            echo "Require branch [<< parameters.branch >>] to be executed but receive [${CIRCLE_BRANCH}] instead"
+            exit 1
+          fi
+        name: Check if this branch is allowed
+  replace_variables:
+    parameters:
+      out:
+        description: Output file path
+        type: string
+      template:
+        description: Template file path
+        type: string
+    steps:
+    - run:
+        command: |
+          envsubst "`printf '${%s} ' $(sh -c "env|cut -d'=' -f1")`" < << parameters.template >> > << parameters.out >>
+        name: Replace variable from template with environment variables
+  setup:
+    steps:
+    - run:
+        command: |
+          sudo apt-get update
+          sudo apt-get install -y envsubst
+          envsubst --version
+        name: Install Dependencies
+    - run:
+        command: |
+          npm install -g yarn
+          yarn --version
+        name: Install Yarn
+  setup_gcloud_command:
+    parameters:
+      base64_service_account:
+        description: Base64 Google service account
+        type: string
+      project_id:
+        description: Google project id from console
+        type: string
+      region:
+        description: Google project region
+        type: string
+    steps:
+    - run:
+        command: npm i googleapis
+        name: Install lib for create .env from googlesheet
+    - run:
+        command: |
+          echo $(echo << parameters.base64_service_account >> | base64 -d) | gcloud auth activate-service-account --key-file=-
+          gcloud --quiet config set project << parameters.project_id >>
+          gcloud --quiet config set compute/zone << parameters.region >>
+        name: Set gcloud service account
+executors:
+  node:
+    docker:
+    - image: circleci/node:10.16.3
+jobs:
+  workspaces_validate:
+    executor: node
+    steps:
+    - checkout
+    - run: yarn
+    - run: yarn workspaces run lint
+    - run: yarn workspaces run test
+    - run: yarn workspaces run build
+version: 2.1
+

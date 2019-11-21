@@ -1,0 +1,5 @@
+version: 2.1
+executors:
+  node:
+    docker:
+      - image: circleci/node:10.16.3

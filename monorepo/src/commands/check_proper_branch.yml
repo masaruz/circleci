@@ -1,20 +1,15 @@
-version: 2.1
-description: |
-  Check if current branch is equal with branch from parameters,
-  just in case of tagged branch trigger the process
-check_proper_branch:
-  parameters:
-    branch:
-      type: string
-      description: Branch name
-  steps:
-    - run:
-        name: Check if this branch is allowed
-        command: |
-          # Get branch name which contains this tag
-          export CIRCLE_BRANCH=$(git branch --contain HEAD --all | grep remotes/origin | grep -v remotes/origin/HEAD | cut -d '/' -f3-)
-          # Check if this branch matches with our expectation
-          if [ "${CIRCLE_BRANCH}" != "<< parameters.branch >>" ]; then
-            echo "Require branch [<< parameters.branch >>] to be executed but receive [${CIRCLE_BRANCH}] instead"
-            exit 1
-          fi
+parameters:
+  branch:
+    type: string
+    description: Branch name
+steps:
+  - run:
+      name: Check if this branch is allowed
+      command: |
+        # Get branch name which contains this tag
+        export CIRCLE_BRANCH=$(git branch --contain HEAD --all | grep remotes/origin | grep -v remotes/origin/HEAD | cut -d '/' -f3-)
+        # Check if this branch matches with our expectation
+        if [ "${CIRCLE_BRANCH}" != "<< parameters.branch >>" ]; then
+          echo "Require branch [<< parameters.branch >>] to be executed but receive [${CIRCLE_BRANCH}] instead"
+          exit 1
+        fi
