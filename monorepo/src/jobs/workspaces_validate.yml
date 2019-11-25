@@ -1,5 +1,6 @@
 executor: node
 steps:
+  - setup
   - checkout
   - run: yarn # install and validate all dependencies
   - run: yarn workspaces run lint

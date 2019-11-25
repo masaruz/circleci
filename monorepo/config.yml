@@ -70,6 +70,7 @@ jobs:
   workspaces_validate:
     executor: node
     steps:
+    - setup
     - checkout
     - run: yarn
     - run: yarn workspaces run lint
