@@ -2,9 +2,12 @@ parameters:
   project_id:
     type: string
     description: Google project id from console
-  region:
-    type: string
+  compute_region:
     description: Google project region
+    type: string
+  cloudrun_region:
+    description: Google cloudrun region
+    type: string
   base64_service_account:
     type: string
     description: Base64 Google service account
@@ -17,4 +20,6 @@ steps:
       command: |
         echo $(echo << parameters.base64_service_account >> | base64 -d) | gcloud auth activate-service-account --key-file=-
         gcloud --quiet config set project << parameters.project_id >>
-        gcloud --quiet config set compute/zone << parameters.region >>
+        gcloud --quiet config set compute/zone << parameters.compute_region >>
+        gcloud --quiet config set run/platform managed
+        gcloud --quiet config set run/region << parameters.cloudrun_region >>
