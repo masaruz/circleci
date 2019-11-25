@@ -1,6 +1,6 @@
 {
     "name": "monorepo",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "author": "Stamp <stampz74@gmail.com>",
     "license": "MIT",
     "private": true,

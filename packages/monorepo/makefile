@@ -5,4 +5,4 @@ pack:
 	circleci orb validate ./config.yml 
 
 publish:
-	circleci orb publish ./config.yml $VERSION
+	circleci orb publish ./config.yml ${VERSION}
