@@ -1,0 +1,12 @@
+parameters:
+  npmrc_token:
+    type: string
+    description: .npmrc content
+  path:
+    type: string
+    description: Path of .npmrc file
+steps:
+  - run:
+      name: Write .npmrc file to publish or install private packages
+      command: |
+        echo << parameters.npmrc_token >> > << parameters.path >>/.npmrc

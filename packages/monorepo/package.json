@@ -1,0 +1,10 @@
+{
+    "name": "monorepo",
+    "version": "1.0.0",
+    "author": "Stamp <stampz74@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "circleci:pack": "make pack"
+    }
+}

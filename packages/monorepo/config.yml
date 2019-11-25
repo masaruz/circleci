@@ -62,6 +62,19 @@ commands:
           gcloud --quiet config set project << parameters.project_id >>
           gcloud --quiet config set compute/zone << parameters.region >>
         name: Set gcloud service account
+  setup_npmrc:
+    parameters:
+      npmrc_token:
+        description: .npmrc content
+        type: string
+      path:
+        description: Path of .npmrc file
+        type: string
+    steps:
+    - run:
+        command: |
+          echo << parameters.npmrc_token >> > << parameters.path >>/.npmrc
+        name: Write .npmrc file to publish or install private packages
 executors:
   node:
     docker:

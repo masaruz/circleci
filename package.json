@@ -1,11 +1,20 @@
 {
-  "name": "circleci",
-  "version": "0.1.1",
-  "description": "Manage circleci config and generate reusable commands and jobs",
-  "repository": "https://github.com/masaruz/circleci.git",
-  "author": "Stamp <stampz74@gmail.com>",
-  "license": "MIT",
-  "scripts": {
-    "monorepo": "./monorepo/pack.sh"
-  }
+    "name": "circleci",
+    "version": "1.0.0",
+    "description": "Manage circleci config and generate reusable commands and jobs",
+    "repository": "https://github.com/masaruz/circleci.git",
+    "author": "Stamp <stampz74@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn workspaces run circleci:pack"
+        }
+    },
+    "dependencies": {
+        "husky": "^3.1.0"
+    }
 }
