@@ -14,3 +14,22 @@ $ brew install circleci
 ```bash
 $ yarn run monorepo
 ```
+##### Use preset orbs to your .circleci/config.yml
+```yaml
+version: 2.1
+orbs:
+  my_orb: masaruz/monorepo@x.x.x
+executors:
+  my_executor: my_orb/node
+commands:
+  my_command: my_orb/setup_gcloud_command
+jobs:
+  my_job: my_orb/workspaces_validate
+  another_job:
+    executor: my_executor
+    steps:
+      - my_command:
+          base64_service_account: "..."
+          project_id: "..."
+          region: "..."
+```
